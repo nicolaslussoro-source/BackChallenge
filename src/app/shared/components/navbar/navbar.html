@@ -1,0 +1,49 @@
+<nav class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <a href="#" class="flex items-center gap-2 group">
+                <span class="text-2xl font-extrabold text-sky-600 group-hover:text-sky-700 transition duration-300">
+                    ⚡ Challenge
+                </span>
+            </a>
+
+            <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition duration-300" type="button" (click)="toggleMenu()">
+                <span class="block w-5 h-0.5 bg-gray-900 mb-1.5 transition-transform duration-300" [class.rotate-45]="isMenuOpen()" [class.translate-y-2]="isMenuOpen()"></span>
+                <span class="block w-5 h-0.5 bg-gray-900 mb-1.5 transition-opacity duration-300" [class.opacity-0]="isMenuOpen()"></span>
+                <span class="block w-5 h-0.5 bg-gray-900 transition-transform duration-300" [class.-rotate-45]="isMenuOpen()" [class.-translate-y-2]="isMenuOpen()"></span>
+            </button>
+
+            <div class="hidden md:block">
+                <ul class="flex items-center gap-1">
+                    @for (item of items(); track item.route) {
+                        <li>
+                            <a [routerLink]="item.route" 
+                               routerLinkActive="active"
+                               class="px-4 py-2 rounded-lg text-gray-700 hover:text-sky-600 font-semibold text-sm transition duration-300">
+                                {{ item.label }}
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div [class.hidden]="!isMenuOpen()" class="absolute top-16 left-0 right-0 bg-white border-b border-gray-200 md:hidden shadow-lg">
+                <ul class="flex flex-col p-4 space-y-2">
+                    @for (item of items(); track item.route) {
+                        <li>
+                            <a [routerLink]="item.route" 
+                               routerLinkActive="active"
+                               [routerLinkActiveOptions]="{ exact: false }"
+                               (click)="closeMenu()"
+                               class="block px-4 py-3 rounded-lg text-gray-700 hover:text-sky-600 hover:bg-gray-50 font-semibold transition duration-300
+                               active:text-white active:bg-sky-600">
+                                {{ item.label }}
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
