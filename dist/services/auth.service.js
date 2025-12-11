@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = login;
 exports.register = register;
 exports.getById = getById;
+exports.isEmailTaken = isEmailTaken;
+exports.getUserData = getUserData;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const crypto_1 = require("crypto");
@@ -14,13 +16,23 @@ const auth_repository_1 = require("../repository/auth.repository");
 const metrics_service_1 = require("./metrics.service");
 async function login(userRequest) {
     const user = await (0, auth_repository_1.getLoginUser)(userRequest.email);
+    if (!user)
+        return null;
     const match = await bcryptjs_1.default.compare(userRequest.password, user.password_hash);
     if (!match)
         return null;
     await (0, auth_repository_1.actualizarLoginInfo)(user.id);
     const JWT_SECRET = env_1.envs.JWT_SECRET || 'dev-secret-change-me';
     const token = jsonwebtoken_1.default.sign({ sub: user.id, email: userRequest.email }, JWT_SECRET, { expiresIn: '5h' }); // 5 horas para probar tranquilo luego dejar menor tiempo
-    return token;
+    return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        created_at: user.created_at,
+        last_login: user.last_login,
+        login_count: user.login_count,
+        token: token,
+    };
 }
 async function register(userRequest) {
     const found = await (0, metrics_service_1.getUser)(userRequest.email);
@@ -29,13 +41,16 @@ async function register(userRequest) {
     const id = (0, crypto_1.randomUUID)();
     const passwordHash = await bcryptjs_1.default.hash(userRequest.password, 8);
     await (0, auth_repository_1.insertUser)(id, userRequest.name, userRequest.email, passwordHash);
+    const JWT_SECRET = env_1.envs.JWT_SECRET || 'dev-secret-change-me';
+    const token = jsonwebtoken_1.default.sign({ sub: id, email: userRequest.email }, JWT_SECRET, { expiresIn: '5h' }); // 5 horas para probar tranquilo luego dejar menor tiempo
     return {
         id: id.toString(),
         email: userRequest.email,
         name: userRequest.name,
         created_at: new Date(),
         last_login: new Date(),
-        login_count: 0
+        login_count: 0,
+        token: token,
     };
 }
 async function getById(id) {
@@ -49,5 +64,25 @@ async function getById(id) {
         created_at: user.created_at,
         last_login: user.last_login,
         login_count: user.login_count || 0
+    };
+}
+async function isEmailTaken(email) {
+    const userWithSameEmail = await (0, auth_repository_1.getUserByEmail)(email);
+    return { isTaken: (!!userWithSameEmail) };
+}
+async function getUserData(id) {
+    const user = await (0, auth_repository_1.getUserById)(id);
+    if (!user)
+        return null;
+    const JWT_SECRET = env_1.envs.JWT_SECRET || 'dev-secret-change-me';
+    const token = jsonwebtoken_1.default.sign({ sub: user.id, email: user.email }, JWT_SECRET, { expiresIn: '5h' });
+    return {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        created_at: user.created_at,
+        last_login: user.last_login,
+        login_count: user.login_count,
+        token: token
     };
 }

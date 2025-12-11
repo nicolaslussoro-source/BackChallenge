@@ -13,6 +13,8 @@ async function getLoginUser(email) {
     const rows = await db_1.default.query('SELECT id, name, email, password_hash, created_at, last_login, login_count FROM users WHERE email = ?', [email]);
     const results = Array.isArray(rows) ? rows : [];
     const user = results[0];
+    if (!user)
+        return null;
     return {
         id: user.id,
         email: user.email,
