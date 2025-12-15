@@ -66,6 +66,7 @@ Ejecuta lo siguiente desde la **carpeta raíz** del proyecto:
 npm install
 cd backend && npm install && cd ..
 cd frontend && npm install && cd ..
+```
 
 ### 2. Levantar el Proyecto
 
