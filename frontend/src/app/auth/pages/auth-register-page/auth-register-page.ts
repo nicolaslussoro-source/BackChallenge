@@ -59,9 +59,11 @@ export class AuthRegisterPage {
     this.authService.register(formData).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
         this.router.navigate(['/auth/dashboard']);
+      } else {
+        this.hasError.set(true);
       }
 
-      this.hasError.set(true);
+      
     });
 
 

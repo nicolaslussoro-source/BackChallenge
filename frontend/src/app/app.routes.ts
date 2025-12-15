@@ -11,13 +11,7 @@ export const routes: Routes = [
         loadChildren: () => import('./metrics/metrics.routes')
     },
     {
-        path: '',
-        redirectTo: 'auth',
-        pathMatch: 'full'
-    },
-    {
         path: '**',
         redirectTo: 'auth'
     }
-          
 ];

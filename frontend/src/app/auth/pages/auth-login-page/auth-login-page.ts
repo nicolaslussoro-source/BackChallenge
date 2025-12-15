@@ -48,9 +48,9 @@ export class AuthLoginPage {
     this.authService.login(credentials).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
         this.router.navigate(['/auth/dashboard']);
+      }else{
+          this.hasError.set(true);
       }
-
-      this.hasError.set(true);
     });
   }
 }

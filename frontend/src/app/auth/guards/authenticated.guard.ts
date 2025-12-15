@@ -1,21 +1,22 @@
 import { inject } from '@angular/core';
-import { CanMatchFn, Route, Router, UrlSegment } from '@angular/router';
+import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../service/auth-service';
-import { firstValueFrom } from 'rxjs';
 
-export const AuthenticatedGuard: CanMatchFn = async(
-    route: Route,
-    segments: UrlSegment[]
+export const AuthenticatedGuard: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
 ) => {
     const authService = inject(AuthService);
     const router = inject(Router);
 
-    const isAuthenticated = await firstValueFrom(authService.checkUser())
 
-    if ( !isAuthenticated ) {
-        router.navigateByUrl('/login')
-        return false
+    const isAuthenticated = (!!authService.user());
+
+    if (!isAuthenticated) {
+
+        return router.parseUrl('/auth/login');
+
     }
-
+    
     return true;
-}
+};

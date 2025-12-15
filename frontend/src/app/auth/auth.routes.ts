@@ -11,31 +11,26 @@ export const authRoutes: Routes = [
             {
                 path: 'login',
                 loadComponent: () => import('./pages/auth-login-page/auth-login-page'),
-                canMatch: [ NotAuthenticatedGuard, ]
+                canActivate: [ NotAuthenticatedGuard ] 
             },
             {
                 path: 'register',
                 loadComponent: () => import('./pages/auth-register-page/auth-register-page'),
-                canMatch: [NotAuthenticatedGuard, ]
+                canActivate: [ NotAuthenticatedGuard ]
             },
             {
                 path: 'dashboard',
                 loadComponent: () => import('./pages/auth-me-page/auth-me-page'),
-                canMatch: [AuthenticatedGuard]
+                canActivate: [ AuthenticatedGuard ]
             },
+            
             {
                 path: '',
-                redirectTo: 'login',
+                redirectTo: 'dashboard',
                 pathMatch: 'full'
-            },
-            {
-                path: '**',
-                redirectTo: 'login'
             }
-        ]
-
-
-     }
+        ],
+    },
 ];
 
-export default authRoutes;
+export default authRoutes

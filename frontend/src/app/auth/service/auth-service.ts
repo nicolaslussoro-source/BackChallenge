@@ -30,9 +30,9 @@ export class AuthService {
   private http = inject(HttpClient);
 
   checkStatusResourse = rxResource({
-    stream: () => this.checkUser(),
-
+    stream: () => this.checkUser()
   })
+
   private _authStatus = signal<AuthStatus>('checking');
   private _user = signal<User | null>(null);
   private _token = signal<string | null>(localStorage.getItem('auth_token'));
@@ -84,7 +84,7 @@ export class AuthService {
 
   checkUser(): Observable<boolean> {
 
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('auth_token')
     if ( !token ) {
       this.logout()
       return of(false);

@@ -8,9 +8,7 @@
         <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8">
             
             <div class="text-center mb-8 border-b pb-4">
-                <div class="w-20 h-20 mx-auto bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-3xl font-bold mb-3 border-4 border-sky-200">
-                    {{ authService.user()!.name.charAt(0).toUpperCase() }}
-                </div>
+                <app-profile-avatar [nombre]="authService.user()!.name"/>
                 <h2 class="text-3xl font-extrabold text-gray-900">{{ authService.user()!.name }}</h2>
                 <p class="text-sm text-gray-500">{{ authService.user()!.email }}</p>
             </div>
@@ -45,11 +43,6 @@
                     <span class="text-sm font-semibold text-sky-600">{{ authService.user()!.login_count }}</span>
                 </div>
             </div>
-
-            <button (click)="redirectToMetrics()"
-                class="mt-8 inline-block w-full text-center py-3 px-4 bg-sky-600 text-white font-bold rounded-lg hover:bg-sky-700 transition duration-300">
-                Ver Dashboard de Métricas
-            </button>
 
             <button (click)="logout()"
             class="mt-8 inline-block w-full text-center py-3 px-4 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300">

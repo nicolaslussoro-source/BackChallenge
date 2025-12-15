@@ -7,7 +7,7 @@ import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-auth-me-page',
-  imports: [DatePipe, RouterLink], 
+  imports: [DatePipe], 
   templateUrl: './auth-me-page.html',
 })
 export class AuthMePage {
