@@ -66,3 +66,9 @@ Ejecuta lo siguiente desde la **carpeta raíz** del proyecto:
 npm install
 cd backend && npm install && cd ..
 cd frontend && npm install && cd ..
+
+### 2. Levantar el Proyecto
+
+Para levantar ambos servicios (Frontend y Backend) simultáneamente, se recomienda el uso de concurrently configurado en el package.json de la raíz.
+
+Nota: Dentro de las carpetas backend y frontend se encuentra un README.md específico que detalla cómo configurar y preparar cada proyecto individualmente (variables de entorno, etc.).
