@@ -16,7 +16,9 @@ export const AuthenticatedGuard: CanActivateFn = (
 
         return router.parseUrl('/auth/login');
 
+    } else{
+       return true;
     }
     
-    return true;
+    
 };

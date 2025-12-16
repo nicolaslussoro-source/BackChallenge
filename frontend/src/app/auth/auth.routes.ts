@@ -8,6 +8,17 @@ export const authRoutes: Routes = [
         path: '',
         component: AuthLayout,
         children: [
+             {
+                path: '',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            },
+            {
+                path: 'dashboard',
+                loadComponent: () => import('./pages/auth-me-page/auth-me-page'),
+                canActivate: [ AuthenticatedGuard ]
+            },
+            
             {
                 path: 'login',
                 loadComponent: () => import('./pages/auth-login-page/auth-login-page'),
@@ -18,19 +29,16 @@ export const authRoutes: Routes = [
                 loadComponent: () => import('./pages/auth-register-page/auth-register-page'),
                 canActivate: [ NotAuthenticatedGuard ]
             },
-            {
-                path: 'dashboard',
-                loadComponent: () => import('./pages/auth-me-page/auth-me-page'),
-                canActivate: [ AuthenticatedGuard ]
-            },
             
-            {
-                path: '',
-                redirectTo: 'dashboard',
-                pathMatch: 'full'
-            }
+            
+           
         ],
     },
+    {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+    }
 ];
 
 export default authRoutes

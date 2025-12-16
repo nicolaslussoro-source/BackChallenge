@@ -18,11 +18,19 @@ export class AuthLoginPage {
   authService = inject(AuthService);
   router = inject(Router);
 
+  
+
   fb: FormBuilder = new FormBuilder();
   formUtils = FormUtils;
 
   hasError = signal<boolean>(false);
   isPosting = signal<boolean>(false);
+
+  constructor(){
+    if (this.authService.authStatus() === 'authenticated'){
+      this.router.navigateByUrl('dashboard')
+    }
+  }
   
   
   loginForm: FormGroup = this.fb.group({

@@ -13,7 +13,9 @@ export const NotAuthenticatedGuard: CanActivateFn = (
 
     if (isAuthenticated) {
         return router.parseUrl('/auth/dashboard');
+    } else {
+       return true;
     }
     
-    return true;
+    
 };

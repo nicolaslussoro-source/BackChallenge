@@ -23,6 +23,12 @@ export class AuthRegisterPage {
 
   hasError = signal<boolean>(false);
 
+  constructor(){
+    if (this.authService.authStatus() === 'authenticated'){
+      this.router.navigateByUrl('dashboard')
+    }
+  }
+
 
   registerForm = this.fb.group({
     name: ['', [Validators.required, FormUtils.fullNameValidator()]],
