@@ -1,17 +1,17 @@
-/FrontChallenge/Front-Angular-Challenge/node_modules
-/FrontChallenge/Front-Angular-Challenge/dist/
-/FrontChallenge/Front-Angular-Challenge/out-tsc/
-/FrontChallenge/Front-Angular-Challenge/.angular/
-/FrontChallenge/Front-Angular-Challenge/.cache/
-/FrontChallenge/Front-Angular-Challenge/coverage
-/FrontChallenge/Front-Angular-Challenge/*.log
-/FrontChallenge/Front-Angular-Challenge/.vscode/
+/frontend/node_modules
+/frontend/dist/
+/frontend/out-tsc/
+/frontend/.angular/
+/frontend/.cache/
+/frontend/coverage
+/frontend/*.log
+/frontend/.vscode/
 
-/BackChallenge/node_modules
-/BackChallenge/logs/
-/BackChallenge/*.log
-/BackChallenge/dist/
-/BackChallenge/build/
-/BackChallenge/.env
+/backend/node_modules
+/backend/logs/
+/backend/*.log
+/backend/dist/
+/backend/build/
+/backend/.env
 
 node_modules
